@@ -1,0 +1,157 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema yao_express_db
+-- -----------------------------------------------------
+-- 姚速运数据库
+
+-- -----------------------------------------------------
+-- Schema yao_express_db
+--
+-- 姚速运数据库
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `yao_express_db` DEFAULT CHARACTER SET utf8 ;
+USE `yao_express_db` ;
+
+-- -----------------------------------------------------
+-- Table `yao_express_db`.`driver`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `yao_express_db`.`driver` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `driver_id` VARCHAR(45) NOT NULL COMMENT '司机编号',
+  `name` VARCHAR(10) NOT NULL COMMENT '司机姓名',
+  `sex` CHAR(1) NOT NULL COMMENT '司机性别，F：女，M：男',
+  `photo` VARCHAR(255) NULL COMMENT '司机头像',
+  `id_No` VARCHAR(18) NOT NULL COMMENT '司机身份证',
+  `phone` VARCHAR(11) NOT NULL COMMENT '司机电话号码',
+  `driving_licence` VARCHAR(255) NULL COMMENT '驾驶证',
+  `vehicle_id` VARCHAR(45) NOT NULL COMMENT '拥有的车辆id',
+  `location` VARCHAR(45) NULL COMMENT '司机当前位置[lati,longi]',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `driverId_UNIQUE` (`driver_id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `yao_express_db`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `yao_express_db`.`customer` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `customer_id` VARCHAR(45) NOT NULL COMMENT '用户id',
+  `name` VARCHAR(10) NOT NULL COMMENT '用户姓名',
+  `sex` CHAR(1) NOT NULL COMMENT '用户性别',
+  `phone` VARCHAR(11) NOT NULL COMMENT '用户电话号码',
+  `photo` VARCHAR(255) NULL COMMENT '用户头像',
+  `location` VARCHAR(45) NULL COMMENT '用户当前定位：[lati,longi]',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `customer_id_UNIQUE` (`customer_id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `yao_express_db`.`account`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `yao_express_db`.`account` (
+  `id` BIGINT NOT NULL COMMENT '自增id',
+  `account` VARCHAR(45) NULL COMMENT '登录账号',
+  `password` VARCHAR(255) NULL COMMENT '登陆密码',
+  `status` CHAR(10) NULL COMMENT '账号状态：NORMAL，FORBID，DELETED',
+  `last_login` DATETIME NULL COMMENT '最后登录时间',
+  `wx_no` VARCHAR(255) NULL COMMENT '微信登陆key',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `yao_express_db`.`vehicle`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `yao_express_db`.`vehicle` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `vehicle_id` VARCHAR(45) NOT NULL COMMENT '车辆编号',
+  `license_no` VARCHAR(12) NOT NULL COMMENT '车牌号',
+  `color` VARCHAR(45) NOT NULL COMMENT '颜色',
+  `type` CHAR(10) NOT NULL COMMENT '车辆类型：摩托车/三轮车/面包车/货车/轿车',
+  `brand` VARCHAR(45) NOT NULL COMMENT '车辆品牌',
+  `max_capacity` INT NOT NULL,
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `licenseNo_UNIQUE` (`license_no` ASC),
+  UNIQUE INDEX `vehicleId_UNIQUE` (`vehicle_id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `yao_express_db`.`order`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `yao_express_db`.`order` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `orderId` VARCHAR(45) NOT NULL COMMENT '订单编号',
+  `senderId` VARCHAR(45) NOT NULL COMMENT '发货人id',
+  `sender_phone` VARCHAR(11) NOT NULL COMMENT '发货人电话',
+  `driver_id` VARCHAR(45) NULL COMMENT '司机id',
+  `capacity` INT NOT NULL COMMENT '需要的空间',
+  `status` VARCHAR(15) NOT NULL COMMENT '订单状态',
+  `origin_location` VARCHAR(45) NOT NULL COMMENT '发货地点定位坐标',
+  `origin_address` VARCHAR(255) NOT NULL COMMENT '发货地点地址',
+  `origin_phone` VARCHAR(11) NOT NULL COMMENT '发货点联系人电话',
+  `destination_location` VARCHAR(45) NOT NULL COMMENT '目的地定位坐标',
+  `destination_address` VARCHAR(255) NOT NULL COMMENT '目的地地址',
+  `destination_phone` VARCHAR(11) NULL COMMENT '目的地收货人联系方式',
+  `mileage_price` DECIMAL NOT NULL COMMENT '里程费用',
+  `wait_price` DECIMAL NULL COMMENT '等待时间费用',
+  `total_price` DECIMAL NOT NULL COMMENT '总价',
+  `deliver_type` VARCHAR(15) NOT NULL COMMENT '配送类型：专属配送/公共配送',
+  `order_type` VARCHAR(15) NOT NULL COMMENT '订单类型：实时订单/预约订单',
+  `booke_time` DATETIME NULL COMMENT '预约时间',
+  `sender_name` VARCHAR(45) NOT NULL COMMENT '发货人姓名',
+  `driver_name` VARCHAR(45) NOT NULL COMMENT '司机姓名',
+  `vehicle_id` VARCHAR(45) NOT NULL COMMENT '运输车辆id',
+  `license_no` VARCHAR(12) NULL COMMENT '运输车辆车牌号',
+  `vehicle_color` VARCHAR(45) NULL COMMENT '运输车辆颜色',
+  `vehicle_type` CHAR(10) NULL COMMENT '运输车辆类型',
+  `vehicle_brand` VARCHAR(45) NULL COMMENT '运输车辆品牌',
+  `start_time` DATETIME NULL COMMENT '开始取货时间',
+  `arrive_time` DATETIME NULL COMMENT '达到取货点时间',
+  `send_time` DATETIME NULL COMMENT '开始发货时间',
+  `receive_time` DATETIME NULL COMMENT '到达目的地时间',
+  `complete_time` DATETIME NULL COMMENT '订单完成时间',
+  `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `orderId_UNIQUE` (`orderId` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `yao_express_db`.`user_login`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `yao_express_db`.`user_login` (
+  `id` BIGINT NOT NULL COMMENT '自增id',
+  `user_login_id` VARCHAR(45) NULL COMMENT '登陆编号',
+  `account` VARCHAR(45) NULL COMMENT '登录账号',
+  `account_type` CHAR(10) NULL COMMENT '登陆账号类型',
+  `login_ip` VARCHAR(45) NULL COMMENT '登录ip',
+  `login_time` DATETIME NULL COMMENT '登录成功时间',
+  `login_location` VARCHAR(45) NULL COMMENT '登录定位位置',
+  `create_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -1,0 +1,84 @@
+#version: '2'
+#services:
+#  discovery:
+#    image: iciyun/cloud-service-manager:latest
+#    ports:
+#      - "8761:8761"
+#  cloud-config:
+#    image: iciyun/cloud-config:latest
+#  cloud-api-gateway:
+#    image: iciyun/cloud-api-gateway:latest
+#  cloud-micro-service-user:
+#    image: iciyun/cloud-micro-service-user:latest
+#  cloud-micro-service-product:
+#    image: iciyun/cloud-micro-service-product:latest
+
+#version: '2'
+#services:
+#  discovery:
+#    image: iciyun/cloud-service-manager
+#    ports:
+#      - "8762:8761"
+#  config:
+#    image: iciyun/cloud-config
+
+redis:
+  image: redis
+  ports:
+    - "56379:6379"
+  environment:
+    - TZ=Asia/Shanghai
+  volumes:
+    - /data/redis/data:/data
+  command: --requirepass "#yaosuyun@redis#"
+  restart: unless-stopped
+
+#db:
+#  image: iciyun/mysql
+#  ports:
+#    - "3306:3306"
+#  volumes:
+#    - /var/lib/mysql
+# docker run --name some-mysql -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql-root -d mysql:tag
+# docker run --name some-mysql -v /my/own/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+# docker run --name mysql_dev -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+mysql:
+  image: mysql:5.6
+  ports:
+    - "30306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=pwd@express-db
+    - TZ=Asia/Shanghai
+    - character-set-server=utf8mb4
+    - collation-server=utf8mb4_unicode_ci
+  volumes:
+    - /var/lib/mysql:/var/lib/mysql
+  command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+discovery:
+  image: yao/cloud-service-manager
+  ports:
+    - "8761:8761"
+  environment:
+    - TZ=Asia/Shanghai
+
+serviceuser:
+  image: yao/service-user
+  ports:
+    - "80:8080"
+    - "443:8443"
+  environment:
+    - TZ=Asia/Shanghai
+  links:
+    - discovery
+    - redis
+    - mysql
+
+
+#webadmin:
+#  image: yao/web-admin
+#  ports:
+#    - "80:8090"
+#    - "443:8090"
+#  environment:
+#    - TZ=Asia/Shanghai
