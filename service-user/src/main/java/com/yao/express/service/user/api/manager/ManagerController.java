@@ -1,7 +1,7 @@
 package com.yao.express.service.user.api.manager;
 
-import com.cloud.common.response.AppResponse;
-import com.cloud.common.util.login.UserLoginUtils;
+import com.yao.express.service.user.response.AppResponse;
+import com.yao.express.service.user.util.login.UserLoginUtils;
 import com.yao.express.service.user.dto.AccLoginDTO;
 import com.yao.express.service.user.dto.LoginUser;
 import com.yao.express.service.user.services.ManagerService;

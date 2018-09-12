@@ -1,6 +1,6 @@
 package com.yao.express.service.user.api.manager;
 
-import com.cloud.common.response.AppResponse;
+import com.yao.express.service.user.response.AppResponse;
 import com.github.pagehelper.PageInfo;
 import com.yao.express.service.user.dto.ListQueryOption;
 import com.yao.express.service.user.entity.AppVersion;

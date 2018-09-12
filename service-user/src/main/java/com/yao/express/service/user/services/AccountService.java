@@ -1,11 +1,6 @@
 package com.yao.express.service.user.services;
 
 import com.alibaba.fastjson.JSON;
-import com.cloud.common.response.AppResponse;
-import com.cloud.common.util.LocalHost;
-import com.cloud.common.util.SHAEncryptUtils;
-import com.cloud.common.util.http.HttpUtils;
-import com.cloud.common.util.login.UserLoginUtils;
 import com.yao.express.service.user.conf.WxMiniConfig;
 import com.yao.express.service.user.dto.ChangePwdDTO;
 import com.yao.express.service.user.dto.ForgotDTO;
@@ -21,6 +16,11 @@ import com.yao.express.service.user.exception.ResponseErrorCode;
 import com.yao.express.service.user.mapper.AccountMapper;
 import com.yao.express.service.user.mapper.CustomerMapper;
 import com.yao.express.service.user.mapper.UserLoginMapper;
+import com.yao.express.service.user.response.AppResponse;
+import com.yao.express.service.user.util.LocalHost;
+import com.yao.express.service.user.util.SHAEncryptUtils;
+import com.yao.express.service.user.util.http.HttpUtils;
+import com.yao.express.service.user.util.login.UserLoginUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

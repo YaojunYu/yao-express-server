@@ -1,9 +1,5 @@
 package com.yao.express.service.user.services;
 
-import com.cloud.common.response.AppResponse;
-import com.cloud.common.util.LocalHost;
-import com.cloud.common.util.SHAEncryptUtils;
-import com.cloud.common.util.login.UserLoginUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yao.express.service.user.dto.*;
@@ -19,6 +15,10 @@ import com.yao.express.service.user.exception.ResponseErrorCode;
 import com.yao.express.service.user.mapper.AccountMapper;
 import com.yao.express.service.user.mapper.CustomerMapper;
 import com.yao.express.service.user.mapper.UserLoginMapper;
+import com.yao.express.service.user.response.AppResponse;
+import com.yao.express.service.user.util.LocalHost;
+import com.yao.express.service.user.util.SHAEncryptUtils;
+import com.yao.express.service.user.util.login.UserLoginUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;

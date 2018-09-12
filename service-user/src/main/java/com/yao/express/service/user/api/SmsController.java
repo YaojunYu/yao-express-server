@@ -1,6 +1,6 @@
 package com.yao.express.service.user.api;
 
-import com.cloud.common.response.AppResponse;
+import com.yao.express.service.user.response.AppResponse;
 import com.yao.express.service.user.services.SmsService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,26 +1,21 @@
 package com.yao.express.service.user.services;
 
 import com.alibaba.fastjson.JSON;
-import com.cloud.common.response.AppResponse;
 import com.yao.express.service.user.dto.HeartbeatMsg;
 import com.yao.express.service.user.dto.HeartbeatRequest;
 import com.yao.express.service.user.entity.Heartbeat;
 import com.yao.express.service.user.enums.WhoTypeEnum;
 import com.yao.express.service.user.exception.ResponseErrorCode;
+import com.yao.express.service.user.response.AppResponse;
 import com.yao.express.service.user.services.cache.HeartbeatCacheDao;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.geo.*;
-import org.springframework.data.redis.connection.RedisGeoCommands;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class HeartbeatService {

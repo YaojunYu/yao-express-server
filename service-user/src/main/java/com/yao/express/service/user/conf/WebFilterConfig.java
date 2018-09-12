@@ -1,6 +1,6 @@
 package com.yao.express.service.user.conf;
 
-import com.cloud.common.util.filter.UserAuthFilter;
+import com.yao.express.service.user.util.filter.UserAuthFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

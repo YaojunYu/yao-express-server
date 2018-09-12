@@ -1,6 +1,6 @@
 package com.yao.express.service.user.api;
 
-import com.cloud.common.response.AppResponse;
+import com.yao.express.service.user.response.AppResponse;
 import com.yao.express.service.user.dto.LoginUser;
 import com.yao.express.service.user.dto.WxLoginDTO;
 import com.yao.express.service.user.services.AccountService;

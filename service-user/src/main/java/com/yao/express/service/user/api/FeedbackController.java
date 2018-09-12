@@ -1,6 +1,6 @@
 package com.yao.express.service.user.api;
 
-import com.cloud.common.response.AppResponse;
+import com.yao.express.service.user.response.AppResponse;
 import com.yao.express.service.user.dto.FeedbackReqDTO;
 import com.yao.express.service.user.services.FeedbackService;
 import org.springframework.web.bind.annotation.PostMapping;

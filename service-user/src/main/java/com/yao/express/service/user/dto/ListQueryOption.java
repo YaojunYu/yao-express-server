@@ -1,6 +1,6 @@
 package com.yao.express.service.user.dto;
 
-import com.cloud.common.response.AppResponse;
+import com.yao.express.service.user.response.AppResponse;
 import com.yao.express.service.user.exception.ResponseErrorCode;
 import org.apache.commons.lang.StringUtils;
 
